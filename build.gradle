@@ -34,7 +34,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
-	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
