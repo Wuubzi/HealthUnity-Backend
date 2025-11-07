@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class CompleteProfileRequestDTO {
 
@@ -25,11 +27,19 @@ public class CompleteProfileRequestDTO {
 
     @NotNull
     @Past
-    private String fecha_nacimiento;
+    private Date fechaNacimiento;
+
+    @NotBlank
+    @Size(max = 10)
+    private String telefono;
 
     @NotBlank
     @Size(max = 10)
     private String genero;
+
+    @NotBlank
+    @Size(max = 20)
+    private String direccion;
 
     private String url_imagen;
 }

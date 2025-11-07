@@ -1,9 +1,11 @@
 package com.healthUnity.backend.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Table(name = "Pacientes")
+@Table(name = "pacientes")
+@Data
 public class Paciente {
 
     @Id
