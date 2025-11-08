@@ -71,6 +71,7 @@ public class PacienteService {
          }
             Paciente paciente = pacienteOptional.get();
             PacienteResponseDTO response = new PacienteResponseDTO();
+            response.setId(paciente.getIdPaciente());
             response.setNombre(paciente.getDetallesUsuario().getNombre());
             response.setApellido(paciente.getDetallesUsuario().getApellido());
             response.setGmail(paciente.getDetallesUsuario().getGmail());

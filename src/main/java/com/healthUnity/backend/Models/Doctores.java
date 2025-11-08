@@ -5,18 +5,30 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "pacientes")
+@Table(name = "doctores")
 @Data
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
-public class Paciente {
-
+public class Doctores {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_paciente")
-    private Long  idPaciente;
+    @Column(name = "id_doctor")
+    private Long idDoctor;
+
+    private int experiencia;
+
+    private String detalles;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_detalle_usuario")
     private DetallesUsuario detallesUsuario;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_especialidad")
+    private Especialidades especialidad;
+
+    @OneToOne
+    @JoinColumn(name = "id_galeria")
+    private Galeria galeria;
+
+
 }
