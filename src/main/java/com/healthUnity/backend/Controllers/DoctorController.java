@@ -1,6 +1,7 @@
 package com.healthUnity.backend.Controllers;
 
 import com.healthUnity.backend.DTO.Request.DoctorFavoritoRequestDTO;
+import com.healthUnity.backend.DTO.Request.OpinionRequestDTO;
 import com.healthUnity.backend.DTO.Response.*;
 import com.healthUnity.backend.Models.Doctores;
 import com.healthUnity.backend.Models.OpinionesDoctores;
@@ -77,6 +78,11 @@ public class DoctorController {
     @PostMapping("/añadir-favoritos")
     public ResponseEntity<ResponseDTO> añadirFavoritos(@RequestBody DoctorFavoritoRequestDTO data, HttpServletRequest request) {
         return new ResponseEntity<>(doctorService.añadirFavoritos(data, request),HttpStatus.OK);
+    }
+
+    @PostMapping("/añadir-opinion")
+    public ResponseEntity<ResponseDTO> añadirOpinion(@RequestBody OpinionRequestDTO opinion, HttpServletRequest request){
+        return new ResponseEntity<>(doctorService.añadirOpinion(opinion,request), HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar-favoritos")

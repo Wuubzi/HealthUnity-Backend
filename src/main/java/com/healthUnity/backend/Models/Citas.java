@@ -18,15 +18,13 @@ public class Citas {
     @Column(name = "id_cita")
     private Long idCita;
     @Column
-    private String detalles;
+    private String razon;
     @Column
     private LocalDate fecha;
     @Column
     private LocalTime hora;
-    @Column
+    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'pendiente'")
     private String estado;
-    @Column
-    private boolean recordar;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_doctor", nullable = false)
@@ -38,5 +36,12 @@ public class Citas {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JsonIgnore
     private Paciente paciente;
+
+    @PrePersist
+    public void prePersist() {
+        if (estado == null) {
+            estado = "pendiente";
+        }
+    }
 
 }

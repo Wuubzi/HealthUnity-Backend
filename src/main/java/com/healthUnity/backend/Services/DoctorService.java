@@ -2,6 +2,7 @@ package com.healthUnity.backend.Services;
 
 import com.healthUnity.backend.DTO.FavoritoDoctorProjection;
 import com.healthUnity.backend.DTO.Request.DoctorFavoritoRequestDTO;
+import com.healthUnity.backend.DTO.Request.OpinionRequestDTO;
 import com.healthUnity.backend.DTO.Response.*;
 import com.healthUnity.backend.Models.*;
 import com.healthUnity.backend.Repositories.*;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -214,6 +217,29 @@ public Doctores getDoctorById(Long idDoctor) {
                     return dto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public ResponseDTO añadirOpinion(OpinionRequestDTO data, HttpServletRequest request) {
+        Optional<Doctores> doctorOptional = doctorRepository.findById(data.getIdDoctor());
+        if (doctorOptional.isEmpty()) {
+            throw new EntityNotFoundException("Doctor no encontrado");
+        }
+        Optional<Paciente> pacienteOptional = pacienteRepository.findById(data.getIdPaciente());
+        if (pacienteOptional.isEmpty()) {
+            throw new EntityNotFoundException("Paciente no encontrado");
+        }
+        Doctores doctor = doctorOptional.get();
+        Paciente paciente = pacienteOptional.get();
+
+        OpinionesDoctores opinion = new OpinionesDoctores();
+        opinion.setDoctor(doctor);
+        opinion.setPaciente(paciente);
+        opinion.setEstrellas(data.getEstrellas());
+        opinion.setDetalles(data.getComentario());
+        opinion.setFecha(LocalDate.now());
+
+        opinionDoctoresRepository.save(opinion);
+        return getResponseDTO(200, "Opinion guardada", request);
     }
 
     private ResponseDTO getResponseDTO(int status, String message, HttpServletRequest url) {
