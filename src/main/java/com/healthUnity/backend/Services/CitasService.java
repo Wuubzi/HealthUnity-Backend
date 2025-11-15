@@ -26,16 +26,19 @@ public class CitasService {
     private final CitasRepository citasRepository;
     private final DoctorRepository doctorRepository;
     private final PacienteRepository pacienteRepository;
+    private final GmailService gmailService;
     private final DateFormatter dateFormatter;
 
     @Autowired
     public CitasService(CitasRepository citasRepository,
                         PacienteRepository pacienteRepository,
                         DoctorRepository doctorRepository,
+                        GmailService gmailService,
                         DateFormatter dateFormatter) {
         this.citasRepository = citasRepository;
         this.pacienteRepository = pacienteRepository;
         this.doctorRepository = doctorRepository;
+        this.gmailService = gmailService;
         this.dateFormatter = dateFormatter;
     }
 
@@ -50,7 +53,6 @@ public class CitasService {
                 idPaciente,
                 LocalDate.now()
         );
-        System.out.println(cita);
         return cita;
     }
 
@@ -71,7 +73,7 @@ public class CitasService {
 
         // Información del doctor
         if (cita.getDoctor() != null) {
-            dto.setIdDoctor(cita.getDoctor().getIdDoctor());
+            dto.setIdDoctor(cita.getDoctor().getIdDoctor    ());
             if (cita.getDoctor().getDetallesUsuario() != null) {
                 dto.setNombre_doctor(cita.getDoctor().getDetallesUsuario().getNombre());
                 dto.setDoctor_image(cita.getDoctor().getDetallesUsuario().getUrlImagen());
@@ -98,13 +100,39 @@ public class CitasService {
             throw new EntityNotFoundException("Doctor no encontrado");
         }
 
+        Paciente paciente = pacienteOptional.get();
+        Doctores doctor = doctoresOptional.get();
+
+
         Citas citas = new Citas();
-        citas.setPaciente(pacienteOptional.get());
-        citas.setDoctor(doctoresOptional.get());
+        citas.setPaciente(paciente);
+        citas.setDoctor(doctor);
         citas.setFecha(cita.getFecha());
         citas.setHora(cita.getHora());
         citas.setRazon(cita.getRazon());
-        citasRepository.save(citas);
+
+        Citas citaSaved=  citasRepository.save(citas);
+
+        String nombrePaciente = paciente.getDetallesUsuario().getNombre()
+                + " "
+                + paciente.getDetallesUsuario().getApellido();
+
+        String nombreDoctor = doctor.getDetallesUsuario().getNombre()
+                + " "
+                + doctor.getDetallesUsuario().getApellido();
+
+
+        gmailService.sendConfirmAppointment(
+                paciente.getDetallesUsuario().getGmail(),
+                nombrePaciente,
+                nombreDoctor,
+                doctor.getDetallesUsuario().getDireccion(),
+                doctor.getEspecialidad().getNombre(),
+                citaSaved.getFecha(),
+                citaSaved.getHora(),
+                citaSaved.getRazon(),
+                doctor.getDetallesUsuario().getUrlImagen()
+        );
 
         return getResponseDTO(200, "Cita agregada exitosamente", request);
     }

@@ -22,7 +22,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         errorResponse.setMessage("Unauthorized");
         errorResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         errorResponse.setError("token invalid or expired");
-        errorResponse.setPath(request.getRequestURI());
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
