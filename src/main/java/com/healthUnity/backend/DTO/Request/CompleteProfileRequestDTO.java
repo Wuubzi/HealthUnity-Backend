@@ -13,11 +13,11 @@ import java.util.Date;
 public class CompleteProfileRequestDTO {
 
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String nombre;
 
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 30)
     private String apellido;
 
     @NotBlank
@@ -34,11 +34,11 @@ public class CompleteProfileRequestDTO {
     private String telefono;
 
     @NotBlank
-    @Size(max = 10)
+    @Size(max = 20)
     private String genero;
 
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 100)
     private String direccion;
 
     private String url_imagen;
