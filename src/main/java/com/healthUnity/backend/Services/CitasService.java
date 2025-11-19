@@ -43,14 +43,16 @@ public class CitasService {
     }
 
 
+    // En el Service
     public Citas getCitaProxima(Long idPaciente) {
-       Optional<Paciente> pacienteOptional = pacienteRepository.findById(idPaciente);
-       if (pacienteOptional.isEmpty()) {
-           throw new EntityNotFoundException("Paciente no encontrado");
-       }
+        Optional<Paciente> pacienteOptional = pacienteRepository.findById(idPaciente);
+        if (pacienteOptional.isEmpty()) {
+            throw new EntityNotFoundException("Paciente no encontrado");
+        }
 
-        Citas cita = citasRepository.findFirstByPaciente_IdPacienteAndFechaGreaterThanEqualOrderByFechaAscHoraAsc(
+        Citas cita = citasRepository.findFirstByPaciente_IdPacienteAndEstadoAndFechaGreaterThanEqualOrderByFechaAscHoraAsc(
                 idPaciente,
+                "pendiente",
                 LocalDate.now()
         );
         return cita;
@@ -144,6 +146,17 @@ public class CitasService {
         }
         Citas cita = citasOptional.get();
         cita.setEstado("cancelada");
+        citasRepository.save(cita);
+        return getResponseDTO(200, "Cita cancelada exitosamente", request);
+    }
+
+    public ResponseDTO completarCita(Long idCita, HttpServletRequest request) {
+        Optional<Citas> citasOptional = citasRepository.findById(idCita);
+        if (citasOptional.isEmpty()) {
+            throw new EntityNotFoundException("Cita no encontrada");
+        }
+        Citas cita = citasOptional.get();
+        cita.setEstado("completada");
         citasRepository.save(cita);
         return getResponseDTO(200, "Cita cancelada exitosamente", request);
     }

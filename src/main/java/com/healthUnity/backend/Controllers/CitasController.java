@@ -49,4 +49,9 @@ public class CitasController {
     public ResponseEntity<ResponseDTO> cancelarCita(@RequestParam Long idCita, HttpServletRequest request){
         return new ResponseEntity<>(citasService.cancelarCita(idCita, request), HttpStatus.OK);
     }
+
+    @PutMapping("/completarCitas")
+    public ResponseEntity<ResponseDTO> completarCita(@RequestParam Long idCita, HttpServletRequest request) {
+        return new ResponseEntity<>(citasService.completarCita(idCita,request), HttpStatus.OK);
+    }
 }

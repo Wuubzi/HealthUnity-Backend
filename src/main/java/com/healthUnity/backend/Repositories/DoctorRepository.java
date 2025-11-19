@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctores, Long> {
@@ -158,4 +160,6 @@ public interface DoctorRepository extends JpaRepository<Doctores, Long> {
             @Param("orderBy") String orderBy,
             Pageable pageable
     );
+
+    Optional<Doctores> findByDetallesUsuario_Gmail(String detallesUsuarioGmail);
 }
