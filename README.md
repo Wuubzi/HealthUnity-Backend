@@ -1,4 +1,4 @@
-# 🏥 HealthUnity Backend
+<h1 align="center">🏥 HealthUnity — AI-Powered Medical Appointment Platform</h1>
 
 <div align="center">
 
