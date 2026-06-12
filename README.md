@@ -189,6 +189,8 @@ Base URL: `http://localhost:8000/api/v1`
 | `POST` | `/ask` | Send a message to EVA; receives a natural-language response with optional tool-based actions |
 | `DELETE` | `/conversation/{email}` | Clear conversation history for a user |
 
+---
+
 ## ⚙️ Configuration
 
 All sensitive values are injected via environment variables. Create a `.env` file or set the following in your environment:
