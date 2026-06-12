@@ -189,25 +189,6 @@ Base URL: `http://localhost:8000/api/v1`
 | `POST` | `/ask` | Send a message to EVA; receives a natural-language response with optional tool-based actions |
 | `DELETE` | `/conversation/{email}` | Clear conversation history for a user |
 
----
-
-## 🗃️ Data Model
-
-```
-DetallesUsuario         (shared user info: name, email, phone, photo URL, address)
-    ↑                ↑
-Paciente         Doctores ──── Especialidades
-    |                |
-    └──── Citas ─────┘
-    |
-FavoritoDoctores ──── Doctores
-OpinionesDoctores ─── Doctores + Paciente
-HorariosDoctor ─────── Doctores
-Galeria ──────────── Imagenes
-```
-
----
-
 ## ⚙️ Configuration
 
 All sensitive values are injected via environment variables. Create a `.env` file or set the following in your environment:
