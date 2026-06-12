@@ -280,14 +280,13 @@ When an appointment is created, a fully-styled **HTML confirmation email** is se
 Emails are sent using Spring's `JavaMailSender` with Gmail SMTP + STARTTLS and are processed on a separate thread (`@Async`) to avoid blocking the HTTP response.
 
 ---
-
-## 👨‍💻 Author
-
-**Wuubzi**  
-[GitHub](https://github.com/Wuubzi)
-
----
-
 ## 📄 License
 
 This project is open source and available for portfolio and educational purposes.
+
+---
+
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/Wuubzi">Wuubzi</a>
+</p>
+
